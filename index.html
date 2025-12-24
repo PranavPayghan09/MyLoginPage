@@ -272,10 +272,42 @@
             try {
                 const result = await signInWithPopup(auth, provider);
                 const user = result.user;
+
+                // 1. Get Reference to where this user SHOULD be in the database
+                const userRef = doc(db, "users", user.uid);
+                
+                // 2. Check if they are already there
+                const userSnap = await getDoc(userRef);
+
+                // 3. If they are NOT in the database, save them now
+                if (!userSnap.exists()) {
+                    showToast("First time login: Saving details...", "info");
+                    
+                    // Generate a temporary username from email (e.g. "john" from "john@gmail.com")
+                    const tempUsername = user.email.split('@')[0];
+
+                    await setDoc(userRef, {
+                        name: user.displayName,
+                        email: user.email,
+                        username: tempUsername, // Google doesn't give a username, so we make one
+                        createdAt: new Date().toISOString(),
+                        provider: "google"
+                    });
+                }
+
                 showToast(`Welcome with Google, ${user.displayName}!`, "success");
             } catch (error) {
-                console.error(error);
-                showToast("Google sign-in failed.", "error");
+                console.error("Full Google Auth Error:", error);
+                
+                let errorMessage = "Google sign-in failed.";
+                if (error.code === 'auth/unauthorized-domain') {
+                    errorMessage = "DOMAIN ERROR: Add domain to Firebase Console.";
+                } else if (error.code === 'auth/popup-blocked') {
+                    errorMessage = "Popup blocked. Please allow popups.";
+                } else if (error.code === 'auth/popup-closed-by-user') {
+                    errorMessage = "Login cancelled.";
+                }
+                showToast(errorMessage, "error");
             }
         }
 
@@ -342,3 +374,4 @@
     </script>
 </body>
 </html>
+
