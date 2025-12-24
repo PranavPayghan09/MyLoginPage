@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Smooth transitions for form switching */
+        .form-container { transition: all 0.3s ease-in-out; }
+        .hidden-form { display: none; opacity: 0; transform: translateY(20px); }
+        .visible-form { display: block; animation: fadeIn 0.4s forwards; }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 min-h-screen flex items-center justify-center p-4">
+
+    <!-- Main Container Card -->
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl flex overflow-hidden min-h-[600px] relative">
+        
+        <!-- Left Side: Decorative Image Section -->
+        <div class="hidden md:flex w-1/2 bg-indigo-600 items-center justify-center relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-indigo-600 to-purple-700 opacity-90"></div>
+            <!-- Abstract Shapes -->
+            <div class="absolute top-0 left-0 w-64 h-64 bg-white opacity-10 rounded-full mix-blend-overlay filter blur-xl -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-80 h-80 bg-pink-500 opacity-10 rounded-full mix-blend-overlay filter blur-xl translate-x-1/2 translate-y-1/2"></div>
+            
+            <div class="relative z-10 text-center p-10 text-white">
+                <h2 class="text-4xl font-bold mb-6" id="side-heading">Welcome Back!</h2>
+                <p class="text-lg text-indigo-100 mb-8" id="side-text">To keep connected with us please login with your personal info.</p>
+                <div class="text-9xl opacity-80 animate-pulse">
+                    <i class="fas fa-rocket"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Login/Signup Forms -->
+        <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center bg-white relative">
+            
+            <!-- LOGIN FORM SECTION -->
+            <div id="login-form" class="visible-form form-container">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Sign In</h1>
+                    <p class="text-gray-500 text-sm">Welcome back! Please enter your details.</p>
+                </div>
+
+                <!-- Google Login Button -->
+                <button id="google-login-btn" class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium py-3 px-4 rounded-xl transition-all duration-200 mb-6 group">
+                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                    <span>Continue with Google</span>
+                </button>
+
+                <div class="relative flex items-center justify-center mb-6">
+                    <div class="border-t border-gray-200 w-full"></div>
+                    <span class="bg-white px-3 text-sm text-gray-400 absolute">or</span>
+                </div>
+
+                <form id="loginForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1 ml-1">Email</label>
+                        <div class="relative">
+                            <i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                            <input type="email" id="login-email" placeholder="Enter your email" class="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-gray-600 bg-gray-50 focus:bg-white" required>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1 ml-1">Password</label>
+                        <div class="relative">
+                            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                            <input type="password" id="login-password" placeholder="••••••••" class="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-gray-600 bg-gray-50 focus:bg-white" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+                        Sign In
+                    </button>
+                </form>
+
+                <div class="mt-8 text-center text-sm text-gray-600">
+                    Don't have an account? 
+                    <button onclick="toggleForm('signup')" class="text-indigo-600 font-bold hover:underline focus:outline-none ml-1">Sign up for free</button>
+                </div>
+            </div>
+
+            <!-- SIGNUP FORM SECTION -->
+            <div id="signup-form" class="hidden-form form-container">
+                <div class="text-center mb-6">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Create Account</h1>
+                    <p class="text-gray-500 text-sm">Join us today! Enter your details below.</p>
+                </div>
+
+                <!-- Google Signup Button -->
+                <button id="google-signup-btn" class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium py-2.5 px-4 rounded-xl transition-all duration-200 mb-5 group">
+                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                    <span>Sign up with Google</span>
+                </button>
+
+                <div class="relative flex items-center justify-center mb-5">
+                    <div class="border-t border-gray-200 w-full"></div>
+                    <span class="bg-white px-3 text-sm text-gray-400 absolute">or</span>
+                </div>
+
+                <form id="signupForm" class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 mb-1 ml-1">Full Name</label>
+                        <div class="relative">
+                            <i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                            <input type="text" id="signup-name" placeholder="John Doe" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-sm bg-gray-50 focus:bg-white" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 mb-1 ml-1">Username</label>
+                        <div class="relative">
+                            <i class="fas fa-at absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                            <input type="text" id="signup-username" placeholder="johndoe123" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-sm bg-gray-50 focus:bg-white" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 mb-1 ml-1">Email Address</label>
+                        <div class="relative">
+                            <i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                            <input type="email" id="signup-email" placeholder="john@example.com" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-sm bg-gray-50 focus:bg-white" required>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 mb-1 ml-1">Password</label>
+                        <div class="relative">
+                            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                            <input type="password" id="signup-password" placeholder="Create a password" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-sm bg-gray-50 focus:bg-white" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all transform hover:-translate-y-0.5 active:translate-y-0 mt-2">
+                        Create Account
+                    </button>
+                </form>
+
+                <div class="mt-6 text-center text-sm text-gray-600">
+                    Already have an account? 
+                    <button onclick="toggleForm('login')" class="text-indigo-600 font-bold hover:underline focus:outline-none ml-1">Log in</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Message Toast Notification -->
+    <div id="toast" class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center gap-3">
+        <i class="fas fa-info-circle text-blue-400" id="toast-icon"></i>
+        <span id="toast-message">Action Successful</span>
+    </div>
+
+    <!-- FIREBASE INTEGRATION LOGIC -->
+    <script type="module">
+        // Import Firebase SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword,
+            signInWithPopup,
+            GoogleAuthProvider,
+            updateProfile
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getFirestore, 
+            doc, 
+            setDoc 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // ==========================================
+        // CONFIGURATION SECTION
+        // Paste your Firebase keys inside the quotes below
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyAIhzVmShZ7-RYa-p1YTFpBKlnRnYZtphA",
+            authDomain: "myloginpage-1842d.firebaseapp.com",
+            projectId: "myloginpage-1842d",
+            storageBucket: "myloginpage-1842d.firebasestorage.app",
+            messagingSenderId: "593351542300",
+            appId: "1:593351542300:web:60305e5ce70783b7e641d9",
+            measurementId: "G-4YTXT5NSJK"
+        };
+
+        // Initialize Firebase
+        // This line checks if the environment provides a config (for preview) or uses your hardcoded config above
+        const app = initializeApp(typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- SIGNUP LOGIC ---
+        async function handleSignup(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('signup-name').value;
+            const username = document.getElementById('signup-username').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            try {
+                showToast("Creating account...", "info");
+                
+                // 1. Create User in Authentication
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // 2. Update the "Display Name" in Auth
+                await updateProfile(user, { displayName: name });
+
+                // 3. Store extra details (username) in Firestore Database
+                await setDoc(doc(db, "users", user.uid), {
+                    name: name,
+                    username: username,
+                    email: email,
+                    createdAt: new Date().toISOString()
+                });
+
+                showToast("Account created successfully!", "success");
+                document.getElementById('signupForm').reset();
+            } catch (error) {
+                console.error(error);
+                let msg = "Error creating account.";
+                if(error.code === 'auth/email-already-in-use') msg = "Email already in use.";
+                if(error.code === 'auth/weak-password') msg = "Password is too weak.";
+                showToast(msg, "error");
+            }
+        }
+
+        // --- LOGIN LOGIC ---
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                showToast("Signing in...", "info");
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                showToast("Welcome back, " + (userCredential.user.displayName || "User"), "success");
+            } catch (error) {
+                console.error(error);
+                let msg = "Login failed.";
+                if(error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') msg = "Invalid email or password.";
+                showToast(msg, "error");
+            }
+        }
+
+        // --- GOOGLE AUTH LOGIC ---
+        async function handleGoogleAuth() {
+            const provider = new GoogleAuthProvider();
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                showToast(`Welcome with Google, ${user.displayName}!`, "success");
+            } catch (error) {
+                console.error(error);
+                showToast("Google sign-in failed.", "error");
+            }
+        }
+
+        // --- Event Listeners ---
+        // We attach these here because this script is a module and functions aren't global
+        document.getElementById('signupForm').addEventListener('submit', handleSignup);
+        document.getElementById('loginForm').addEventListener('submit', handleLogin);
+        document.getElementById('google-login-btn').addEventListener('click', handleGoogleAuth);
+        document.getElementById('google-signup-btn').addEventListener('click', handleGoogleAuth);
+    </script>
+
+    <!-- UI Interaction Script (Toggle Logic) -->
+    <script>
+        function toggleForm(view) {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const sideHeading = document.getElementById('side-heading');
+            const sideText = document.getElementById('side-text');
+
+            if (view === 'signup') {
+                loginForm.classList.remove('visible-form');
+                loginForm.classList.add('hidden-form');
+                
+                signupForm.classList.remove('hidden-form');
+                setTimeout(() => { signupForm.classList.add('visible-form'); }, 50);
+
+                sideHeading.textContent = "Hello, Friend!";
+                sideText.textContent = "Enter your personal details and start your journey with us.";
+            } else {
+                signupForm.classList.remove('visible-form');
+                signupForm.classList.add('hidden-form');
+                
+                loginForm.classList.remove('hidden-form');
+                setTimeout(() => { loginForm.classList.add('visible-form'); }, 50);
+
+                sideHeading.textContent = "Welcome Back!";
+                sideText.textContent = "To keep connected with us please login with your personal info.";
+            }
+        }
+
+        // Global Toast Function
+        function showToast(message, type = "info") {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            const toastIcon = document.getElementById('toast-icon');
+            
+            toastMsg.textContent = message;
+            
+            if(type === 'success') { toastIcon.className = 'fas fa-check-circle text-green-400'; }
+            else if(type === 'error') { toastIcon.className = 'fas fa-exclamation-circle text-red-400'; }
+            else { toastIcon.className = 'fas fa-info-circle text-blue-400'; }
+
+            toast.classList.remove('opacity-0', 'translate-y-[-20px]');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-[-20px]');
+            }, 3000);
+        }
+        
+        // Expose toggleForm to global window scope so HTML onclick attributes can see it
+        window.toggleForm = toggleForm;
+    </script>
+</body>
+</html>
